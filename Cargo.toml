@@ -1,0 +1,31 @@
+[package]
+name = "storage"  # Project name
+version = "0.0.1" # Version
+edition = "2021"  # Edition
+
+[lib]
+path = "src/lib.rs"
+crate-type = ["cdylib"] # https://doc.rust-lang.org/reference/linkage.html
+
+[profile.release]
+lto = true
+opt-level = 3
+codegen-units = 1
+
+[dependencies]
+candid = "0.10"
+ic-cdk = "0.17"
+# ic-certified-map = "0.4.0"
+
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"                                 # json
+
+ic-stable-structures = "0.6"
+ciborium = "0.2"
+
+strum = "0.26.3"
+strum_macros = "0.26.4"
+
+jelly-model = { path = "../jelly-packages/jelly-model", features = [
+    # "validate", # The verification code requires BOA_ENGINE and indirectly introduced getrandom, but there is no environment in the jar, so avoid it
+] }

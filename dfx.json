@@ -1,0 +1,16 @@
+{
+    "canisters": {
+        "storage": {
+            "type": "custom",
+            "build": [
+                "cargo test print_candid -- --nocapture",
+                "cargo build --target wasm32-unknown-unknown --release",
+                "ic-wasm target/wasm32-unknown-unknown/release/storage.wasm -o target/wasm32-unknown-unknown/release/storage_opt.wasm metadata candid:service -f storage.did -v public",
+                "ic-wasm target/wasm32-unknown-unknown/release/storage_opt.wasm -o storage.wasm shrink"
+            ],
+            "gzip": true,
+            "wasm": "storage.wasm",
+            "candid": "storage.did"
+        }
+    }
+}
